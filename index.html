@@ -80,7 +80,38 @@ input.addEventListener("keydown", e=>{
     handle(cmd);
   }
 });
+const accounts = {
+  cucumber: { password: "cyxs", role: "player" },
+  margaret: { password: "rose", role: "support" },
+  glitch: { password: "envy", role: "overlap" }
+};
 
+let currentUser = null; // 登錄成功後保存角色
+  
+case "login":
+case "login cucumber":
+case "login margaret":
+case "login glitch":
+    loginProcedure(cmd.split(" ")[1]); // 後面接帳號名
+    break;
+
+function loginProcedure(user){
+    if(!accounts[user]){
+        printLine("Unknown user");
+        return;
+    }
+    let pwd = prompt("Enter password for " + user + ":");
+    if(pwd === accounts[user].password){
+        currentUser = accounts[user];
+        printLines([
+            Login successful.,
+            User: ${user},
+            Role: ${currentUser.role}
+        ], 30);
+    } else {
+        printLine("Incorrect password", 30);
+    }
+}
 // 指令邏輯
 function handle(cmd){
   switch(cmd.toLowerCase()){
@@ -90,10 +121,48 @@ function handle(cmd){
         "help - 顯示指令列表",
         "whoami - 顯示使用者身份",
         "log - 查看系統日誌",
+        "login - 登入已有帳號",
         "status - 查看系統狀態"
       ], 20);
       break;
 
+      function handle(cmd){
+  if(!currentUser && cmd !== "login"){
+      printLine("Please login first.", 30);
+      return;
+  }
+
+  switch(cmd.toLowerCase()){
+    case "help":
+      if(currentUser.role === "player"){
+          printLines(["help, whoami, log, status"], 20);
+      } else if(currentUser.role === "support"){
+          printLines(["help, whoami, status"], 20);
+      } else if(currentUser.role === "overlap"){
+          printLines(["help, whoami, log, status, glitch"], 20);
+      }
+      break;
+
+    case "whoami":
+      printLines([
+        "User: " + getUserName(),
+        "Role: " + currentUser.role
+      ], 30);
+      break;
+
+    case "glitch":
+      if(currentUser.role === "overlap"){
+          printLines(["Accessing residual glitch..."], 30);
+      } else {
+          printLine("Unknown command", 30);
+      }
+      break;
+
+    default:
+      printLine("Unknown command", 30);
+  }
+}
+      
     case "whoami":
       printLines([
         "User: 黃芷盈",
@@ -124,5 +193,6 @@ function handle(cmd){
 </script>
 </body>
 </html>
+
 
 
