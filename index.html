@@ -13,6 +13,7 @@ body {
 
 #terminal {
   white-space: pre-wrap;
+  min-height: 400px;
 }
 
 input {
@@ -28,49 +29,97 @@ input {
 
 <body>
 <div id="terminal"></div>
-<input id="cmd" />
+<input id="cmd" autofocus />
 
 <script>
 const term = document.getElementById("terminal");
 const input = document.getElementById("cmd");
 
-function print(t){
-  term.innerHTML += t + "<br>";
-  term.scrollTop = term.scrollHeight;
+// 打印函數：支援打字延遲
+function printLine(text, delay=50, callback=null) {
+  let i = 0;
+  let lineInterval = setInterval(() => {
+    term.innerHTML += text[i];
+    i++;
+    term.scrollTop = term.scrollHeight;
+    if(i >= text.length) {
+      clearInterval(lineInterval);
+      term.innerHTML += "<br>";
+      if(callback) callback();
+    }
+  }, delay);
 }
 
-print("Booting...");
-print("Residual Data v0.9");
-print("User: Unknown");
-print("");
+// 連續打印多行
+function printLines(lines, delay=50, index=0) {
+  if(index >= lines.length) return;
+  printLine(lines[index], delay, () => printLines(lines, delay, index+1));
+}
 
+// 開機動畫
+const bootLines = [
+  "Booting Residual Terminal...",
+  "Loading memory modules...",
+  "Recovering cache...",
+  "Residual activity detected...",
+  "Initializing user interface...",
+  "System ready.",
+  "User: Unknown",
+  ""
+];
+
+printLines(bootLines, 40); // 每個字40ms
+
+// 指令處理
 input.addEventListener("keydown", e=>{
   if(e.key==="Enter"){
-    handle(input.value);
+    const cmd = input.value.trim();
     input.value="";
+    if(cmd) printLine("> " + cmd, 0); // 輸入的指令立刻顯示
+    handle(cmd);
   }
 });
 
+// 指令邏輯
 function handle(cmd){
-  switch(cmd){
+  switch(cmd.toLowerCase()){
     case "help":
-      print("help, whoami, log, status");
+      printLines([
+        "Available commands:",
+        "help - 顯示指令列表",
+        "whoami - 顯示使用者身份",
+        "log - 查看系統日誌",
+        "status - 查看系統狀態"
+      ], 20);
       break;
 
     case "whoami":
-      print("User: cucumber");
-      print("Override: envy");
+      printLines([
+        "User: cucumber",
+        "Override: envy"
+      ], 30);
+      break;
+
+    case "log":
+      printLines([
+        "[ERROR] Data corrupted",
+        "[WARNING] Residual activity detected",
+        "[INFO] No anomalies found in main script"
+      ], 30);
+      break;
+
+    case "status":
+      printLines([
+        "System stable",
+        "Override pending",
+        "Residual scripts active"
+      ], 30);
       break;
 
     default:
-      print("Unknown command");
+      printLine("Unknown command", 30);
   }
 }
 </script>
 </body>
-
 </html>
-
-
-
-
