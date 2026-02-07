@@ -104,9 +104,9 @@ function loginProcedure(user){
     if(pwd === accounts[user].password){
         currentUser = accounts[user];
         printLines([
-            Login successful.,
-            User: ${user},
-            Role: ${currentUser.role}
+            `Login successful.`,
+            `User: ${user}`,
+            `Role: ${currentUser.role}`
         ], 30);
     } else {
         printLine("Incorrect password", 30);
@@ -193,6 +193,7 @@ function handle(cmd){
 </script>
 </body>
 </html>
+
 
 
 
