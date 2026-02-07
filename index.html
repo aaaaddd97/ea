@@ -27,65 +27,39 @@ input {
 </head>
 
 <body>
-
-<div id="terminal">
-Booting Residual System...
-
-User: Guest
-
-Type "help" for commands.
-
-</div>
-
-<input id="cmd" autofocus />
+<div id="terminal"></div>
+<input id="cmd" />
 
 <script>
-  print("Initializing...");
-  print("Loading memory...");
-  print("Recovering cache...");
-  print("Residual found.");
 const term = document.getElementById("terminal");
 const input = document.getElementById("cmd");
 
-function print(text) {
-  term.textContent += "\n" + text;
-  window.scrollTo(0, document.body.scrollHeight);
+function print(t){
+  term.innerHTML += t + "<br>";
+  term.scrollTop = term.scrollHeight;
 }
 
-input.addEventListener("keydown", e => {
-  if (e.key === "Enter") {
-    const cmd = input.value.trim();
-    print("> " + cmd);
-    handle(cmd);
-    input.value = "";
+print("Booting...");
+print("Residual Data v0.9");
+print("User: Unknown");
+print("");
+
+input.addEventListener("keydown", e=>{
+  if(e.key==="Enter"){
+    handle(input.value);
+    input.value="";
   }
 });
 
-function handle(cmd) {
-
-  switch(cmd.toLowerCase()) {
-
+function handle(cmd){
+  switch(cmd){
     case "help":
-      print("Commands: help, log, status, login");
+      print("help, whoami, log, status");
       break;
 
-    case "log":
-      print("[ERROR] Data corrupted");
-      print("[WARNING] Residual activity detected");
-      break;
-
-    case "status":
-      print("System unstable");
-      print("Override: pending");
-      break;
-
-    case "login envy":
-      print("Password required");
-      break;
-
-    case "cyxs":
-      print("Access granted");
-      print("Welcome, Envy");
+    case "whoami":
+      print("User: cucumber");
+      print("Override: envy");
       break;
 
     default:
@@ -93,10 +67,10 @@ function handle(cmd) {
   }
 }
 </script>
-
 </body>
 
 </html>
+
 
 
 
