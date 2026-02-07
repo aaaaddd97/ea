@@ -80,20 +80,7 @@ input.addEventListener("keydown", e=>{
     handle(cmd);
   }
 });
-const accounts = {
-  cucumber: { password: "cyxs", role: "player" },
-  margaret: { password: "rose", role: "support" },
-  glitch: { password: "envy", role: "overlap" }
-};
 
-let currentUser = null; // 登錄成功後保存角色
-
-case "login":
-case "login cucumber":
-case "login margaret":
-case "login glitch":
-    loginProcedure(cmd.split(" ")[1]); // 後面接帳號名
-    break;
 // 指令邏輯
 function handle(cmd){
   switch(cmd.toLowerCase()){
@@ -131,5 +118,6 @@ function handle(cmd){
 </script>
 </body>
 </html>
+
 
 
