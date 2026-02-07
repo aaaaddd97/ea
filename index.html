@@ -125,49 +125,6 @@ function handle(cmd){
       ], 20);
       break;
 
-      function handle(cmd){
-        if(!currentUser && cmd !== "login"){
-          printLine("Please login first.", 30);
-      return;
-  }
-
-  switch(cmd.toLowerCase()){
-    case "help":
-      if(currentUser.role === "player"){
-          printLines(["help, whoami, log, status"], 20);
-      } else if(currentUser.role === "support"){
-          printLines(["help, whoami, status"], 20);
-      } else if(currentUser.role === "overlap"){
-          printLines(["help, whoami, log, status, glitch"], 20);
-      }
-      break;
-case "whoami":
-      printLines([
-        "User: " + getUserName(),
-        "Role: " + currentUser.role
-      ], 30);
-      break;
-
-    case "glitch":
-      if(currentUser.role === "overlap"){
-          printLines(["Accessing residual glitch..."], 30);
-      } else {
-          printLine("Unknown command", 30);
-      }
-      break;
-
-    default:
-      printLine("Unknown command", 30);
-  }
-}
-
-    case "whoami":
-      printLines([
-        "User: 黃芷盈",
-        "Override: 48 75 61 6e 67 20 5a 68 69 79 69 6e 67"
-      ], 30);
-      break;
-
     case "log":
       printLines([
         "【錯誤】 資料已損壞",
@@ -191,3 +148,4 @@ case "whoami":
 </script>
 </body>
 </html>
+
