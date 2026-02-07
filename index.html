@@ -58,13 +58,13 @@ function printLines(lines, delay=50, index=0) {
 
 // 開機動畫
 const bootLines = [
-  "Booting Residual Terminal...",
-  "Loading memory modules...",
-  "Recovering cache...",
-  "Residual activity detected...",
-  "Initializing user interface...",
-  "System ready.",
-  "User: Unknown",
+  "正在啟動殘留終端機...",
+  "正在載入記憶體模組...",
+  "正在恢復快取...",
+  "偵測到殘留活動...",
+  "正在初始化使用者介面...",
+  "系統已準備就緒.",
+  "使用者：未知",
   ""
 ];
 
@@ -85,7 +85,7 @@ function handle(cmd){
   switch(cmd.toLowerCase()){
     case "help":
       printLines([
-        "Available commands:",
+        "可用指令:",
         "help - 顯示指令列表",
         "whoami - 顯示使用者身份",
         "log - 查看系統日誌",
@@ -95,31 +95,32 @@ function handle(cmd){
 
     case "whoami":
       printLines([
-        "User: cucumber",
-        "Override: envy"
+        "User: 黃芷盈",
+        "Override: 48 75 61 6e 67 20 5a 68 69 79 69 6e 67"
       ], 30);
       break;
 
     case "log":
       printLines([
-        "[ERROR] Data corrupted",
-        "[WARNING] Residual activity detected",
-        "[INFO] No anomalies found in main script"
+        "【錯誤】 資料已損壞",
+        "【警告】偵測到殘留活動",
+        "【訊息】 主腳本中未發現異常"
       ], 30);
       break;
 
     case "status":
       printLines([
-        "System stable",
-        "Override pending",
-        "Residual scripts active"
+        "系統穩定",
+        "覆蓋待定",
+        "殘留腳本處於活動狀態"
       ], 30);
       break;
 
     default:
-      printLine("Unknown command", 30);
+      printLine("未知命令", 30);
   }
 }
 </script>
 </body>
 </html>
+
