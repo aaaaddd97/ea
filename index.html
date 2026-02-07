@@ -127,9 +127,9 @@ function handle(cmd){
       break;
 
       function handle(cmd){
-  if(!currentUser && cmd !== "login"){
-      printLine("Please login first.", 30);
-      return;
+        if(!currentUser && cmd !== "login"){
+        printLine("Please login first.", 30);
+          return;
   }
 
   switch(cmd.toLowerCase()){
@@ -193,6 +193,7 @@ function handle(cmd){
 </script>
 </body>
 </html>
+
 
 
 
