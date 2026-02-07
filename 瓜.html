@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>Residual Terminal</title>
+<style>
+body {
+  background: black;
+  color: #9f7cff;
+  font-family: monospace;
+  padding: 20px;
+}
+
+#terminal {
+  white-space: pre-wrap;
+}
+
+input {
+  background: black;
+  color: #9f7cff;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-family: monospace;
+}
+</style>
+</head>
+
+<body>
+
+<div id="terminal">
+Booting Residual System...
+
+User: Guest
+
+Type "help" for commands.
+
+</div>
+
+<input id="cmd" autofocus />
+
+<script>
+const term = document.getElementById("terminal");
+const input = document.getElementById("cmd");
+
+function print(text) {
+  term.textContent += "\n" + text;
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+input.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    const cmd = input.value.trim();
+    print("> " + cmd);
+    handle(cmd);
+    input.value = "";
+  }
+});
+
+function handle(cmd) {
+
+  switch(cmd.toLowerCase()) {
+
+    case "help":
+      print("Commands: help, log, status, login");
+      break;
+
+    case "log":
+      print("[ERROR] Data corrupted");
+      print("[WARNING] Residual activity detected");
+      break;
+
+    case "status":
+      print("System unstable");
+      print("Override: pending");
+      break;
+
+    case "login envy":
+      print("Password required");
+      break;
+
+    case "cyxs":
+      print("Access granted");
+      print("Welcome, Envy");
+      break;
+
+    default:
+      print("Unknown command");
+  }
+}
+</script>
+
+</body>
+</html>
